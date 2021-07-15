@@ -1,0 +1,584 @@
+{
+	"info": {
+		"_postman_id": "3afd2046-0292-4906-bd25-b76c53998708",
+		"name": "validation tests in master CRM",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Domains",
+			"item": [
+				{
+					"name": "create-domain",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let message = '';\r",
+									"\r",
+									"switch (pm.response.code) {\r",
+									"    case 200:\r",
+									"    message = 'New Domain created, status code 200, Domain created';\r",
+									"    break;\r",
+									"\r",
+									"    case 500:\r",
+									"    message = 'Server error,Status code 500, Create Domain not working';\r",
+									"    break;\r",
+									"\r",
+									"    default:\r",
+									"    message = '';\r",
+									"}\r",
+									"\r",
+									"pm.test(message, () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"funnel\",\r\n    \"domain\":\"{{$randomUrl}}\",\r\n    \"ip\": \"{{$randomIP}}\",\r\n    \"status\": \"reserved\",\r\n    \"application_id\":1,\r\n    \"funnel_id\":null,\r\n    \"company_id\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/crm/api/v1/domains",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"crm",
+								"api",
+								"v1",
+								"domains"
+							]
+						},
+						"description": "This request creates a new domain, where\n* _**ID**_ - Unique identificator\n* _**Type**_ - The attribute that determines the type of domain \n * goTrack\n * funnel\n* _**Domain**_ - The part of the URL that defines the Domain\n* _**IP**_ - Unique adress of the device\n* _**Funnel**_ - Funnel which is attached to the domain\n * funnel\n * application\n* _**Application**_ - Application which is attached to the domain\n * funnel\n * application\n* _**Status**_ - The status of domain that speaks of its availability\n * removed\n * reserved\n * active\n * banned\n* _**Company**_ - The company to which the application and domain belong\n* _**Created At**_ - Date of element creation\n* _**Updated At**_ - Date of element update"
+					},
+					"response": [
+						{
+							"name": "status code 200",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"funnel\",\r\n    \"domain\":\"{{DOMAIN}}\",\r\n    \"ip\": \"10.12.11.24\",\r\n    \"status\": \"reserved\",\r\n    \"application_id\":1,\r\n    \"funnel_id\":null,\r\n    \"company_id\": null\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL}}/crm/api/v1/domains",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"crm",
+										"api",
+										"v1",
+										"domains"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "server",
+									"value": "nginx"
+								},
+								{
+									"key": "date",
+									"value": "Thu, 18 Mar 2021 13:51:09 GMT"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "transfer-encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "cache-control",
+									"value": "private, must-revalidate"
+								},
+								{
+									"key": "pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "expires",
+									"value": "-1"
+								},
+								{
+									"key": "x-ratelimit-limit",
+									"value": "600"
+								},
+								{
+									"key": "x-ratelimit-remaining",
+									"value": "599"
+								},
+								{
+									"key": "access-control-allow-credentials",
+									"value": "true"
+								},
+								{
+									"key": "access-control-allow-methods",
+									"value": "GET, POST, OPTIONS, PUT, PATCH always"
+								},
+								{
+									"key": "access-control-allow-headers",
+									"value": "DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range,Access-Control-Allow-Credentials,Authorization"
+								},
+								{
+									"key": "access-control-expose-headers",
+									"value": "DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range,Access-Control-Allow-Credentials"
+								},
+								{
+									"key": "content-encoding",
+									"value": "gzip"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": 14,\n        \"type\": \"funnel\",\n        \"domain\": \"http://wendell.org\",\n        \"ip\": \"10.12.11.24\",\n        \"status\": \"reserved\",\n        \"created_at\": 1616075469,\n        \"updated_at\": 1616075469,\n        \"application\": null,\n        \"company\": null,\n        \"funnel\": null\n    },\n    \"measure\": null,\n    \"measure_with_boot\": 0.094812154769897461\n}"
+						}
+					]
+				},
+				{
+					"name": "update-domain",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"let httpcode = pm.response.code;\r",
+									"let message = '';\r",
+									"\r",
+									"switch (httpcode) {\r",
+									"    case 422:\r",
+									"    message = 'Validation Domain worked, status code 422, Domain not updated';\r",
+									"    break;\r",
+									"\r",
+									"    case 200:\r",
+									"    message = 'Validation Domain not worked, status code 200, Domain updated';\r",
+									"    break;\r",
+									"\r",
+									"    default:\r",
+									"    message = 'Server error,Status code'+httpcode+', Updat Domain not working';\r",
+									"}\r",
+									"\r",
+									"pm.test(message, () => {\r",
+									"    pm.response.to.have.status(422);\r",
+									"});\r",
+									"\r",
+									"pm.test('Validation is performed by domain', ()=> {\r",
+									"        pm.expect(responseJson.errors).to.have.key('domain')\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"funnel\",\r\n    \"domain\": \"{{DOMAIN}}\",\r\n    \"ip\": \"10.12.11.24\",\r\n    \"status\": \"reserved\",\r\n    \"application_id\": 1,\r\n    \"funnel_id\":null,\r\n    \"company_id\": 1}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/crm/api/v1/domains/1",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"crm",
+								"api",
+								"v1",
+								"domains",
+								"1"
+							]
+						},
+						"description": "This request updates the domain, where\n* _**ID**_ - Unique identificator\n* _**Type**_ - The attribute that determines the type of domain \n * goTrack\n * funnel\n* _**Domain**_ - The part of the URL that defines the Domain\n* _**IP**_ - Unique adress of the device\n* _**Funnel**_ - Funnel which is attached to the domain\n * funnel\n * application\n* _**Application**_ - Application which is attached to the domain\n * funnel\n * application\n* _**Status**_ - The status of domain that speaks of its availability\n * removed\n * reserved\n * active\n * banned\n* _**Company**_ - The company to which the application and domain belong\n* _**Created At**_ - Date of element creation\n* _**Updated At**_ - Date of element update"
+					},
+					"response": [
+						{
+							"name": "status code 422",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"funnel\",\r\n    \"domain\": \"{{DOMAIN}}\",\r\n    \"ip\": \"10.12.11.24\",\r\n    \"status\": \"reserved\",\r\n    \"application_id\": 1,\r\n    \"funnel_id\": null,\r\n    \"company_id\": null\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL}}/crm/api/v1/domains/1",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"crm",
+										"api",
+										"v1",
+										"domains",
+										"1"
+									]
+								}
+							},
+							"status": "Unprocessable Entity",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "server",
+									"value": "nginx"
+								},
+								{
+									"key": "date",
+									"value": "Thu, 18 Mar 2021 13:48:08 GMT"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "transfer-encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "cache-control",
+									"value": "private, must-revalidate"
+								},
+								{
+									"key": "pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "expires",
+									"value": "-1"
+								},
+								{
+									"key": "x-ratelimit-limit",
+									"value": "600"
+								},
+								{
+									"key": "x-ratelimit-remaining",
+									"value": "598"
+								},
+								{
+									"key": "access-control-allow-credentials",
+									"value": "true"
+								},
+								{
+									"key": "access-control-allow-headers",
+									"value": "DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range,Access-Control-Allow-Credentials,Authorization"
+								},
+								{
+									"key": "access-control-expose-headers",
+									"value": "DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range,Access-Control-Allow-Credentials"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": {\n        \"domain\": [\n            \"The domain has already been taken.\"\n        ]\n    },\n    \"measure_with_boot\": 0.099487066268920898\n}"
+						}
+					]
+				},
+				{
+					"name": "update-ip",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"let httpcode = pm.response.code;\r",
+									"let message = '';\r",
+									"\r",
+									"switch (httpcode) {\r",
+									"    case 422:\r",
+									"    message = 'Validation IP worked, status code 422, Domain not updated';\r",
+									"    break;\r",
+									"\r",
+									"    case 200:\r",
+									"    message = 'Validation IP not worked, status code 200, Domain updated';\r",
+									"    break;\r",
+									"\r",
+									"    default:\r",
+									"    message = 'Server error, Status code'+httpcode+', Update Domain not working';\r",
+									"}\r",
+									"\r",
+									"pm.test(message, () => {\r",
+									"    pm.response.to.have.status(422);\r",
+									"});\r",
+									"\r",
+									"pm.test('Validation is performed by IP', ()=> {\r",
+									"        pm.expect(responseJson.errors).to.have.key('ip')\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"funnel\",\r\n    \"domain\": \"{{$randomUrl}}\",\r\n    \"ip\":\"10.10.10\",\r\n    \"status\": \"active\",\r\n    \"application_id\": null,\r\n    \"funnel_id\":null,\r\n    \"company_id\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/crm/api/v1/domains/1",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"crm",
+								"api",
+								"v1",
+								"domains",
+								"1"
+							]
+						},
+						"description": "This request updates the ip, where\n* _**ID**_ - Unique identificator\n* _**Type**_ - The attribute that determines the type of domain \n * goTrack\n * funnel\n* _**Domain**_ - The part of the URL that defines the Domain\n* _**IP**_ - Unique adress of the device\n* _**Funnel**_ - Funnel which is attached to the domain\n * funnel\n * application\n* _**Application**_ - Application which is attached to the domain\n * funnel\n * application\n* _**Status**_ - The status of domain that speaks of its availability\n * removed\n * reserved\n * active\n * banned\n* _**Company**_ - The company to which the application and domain belong\n* _**Created At**_ - Date of element creation\n* _**Updated At**_ - Date of element update"
+					},
+					"response": [
+						{
+							"name": "status code 422",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"funnel\",\r\n    \"domain\": \"{{$randomUrl}}\",\r\n    \"ip\":\"10.10.10\",\r\n    \"status\": \"reserved\",\r\n    \"application_id\": 1,\r\n    \"funnel_id\": null,\r\n    \"company_id\": null\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL}}/crm/api/v1/domains/2",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"crm",
+										"api",
+										"v1",
+										"domains",
+										"2"
+									]
+								}
+							},
+							"status": "Unprocessable Entity",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "server",
+									"value": "nginx"
+								},
+								{
+									"key": "date",
+									"value": "Thu, 18 Mar 2021 15:05:54 GMT"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "transfer-encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "cache-control",
+									"value": "private, must-revalidate"
+								},
+								{
+									"key": "pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "expires",
+									"value": "-1"
+								},
+								{
+									"key": "x-ratelimit-limit",
+									"value": "600"
+								},
+								{
+									"key": "x-ratelimit-remaining",
+									"value": "599"
+								},
+								{
+									"key": "access-control-allow-credentials",
+									"value": "true"
+								},
+								{
+									"key": "access-control-allow-headers",
+									"value": "DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range,Access-Control-Allow-Credentials,Authorization"
+								},
+								{
+									"key": "access-control-expose-headers",
+									"value": "DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range,Access-Control-Allow-Credentials"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": {\n        \"ip\": [\n            \"The ip must be a valid IP address.\"\n        ]\n    },\n    \"measure_with_boot\": 0.083564996719360352\n}"
+						}
+					]
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"const LOCAL_URL = 'http://localhost:1010';",
+					"const DEMO_URL = '';",
+					"",
+					"if(!pm.environment.get('API_URL')) {",
+					"   apiUrl = pm.environment.get('APP_ENV') === 'local' ? LOCAL_URL : DEMO_URL; ",
+					"    pm.environment.set('API_URL', apiUrl)",
+					"}",
+					"",
+					"if (!pm.environment.get('JWT_TOKEN')) {",
+					"     pm.sendRequest({",
+					"        url: pm.environment.get(\"API_URL\") + 'crm/api/v1/auth/login',",
+					"        method: 'POST',",
+					"        header: {",
+					"            'content-type': 'application/json'",
+					"         },",
+					"        body: {",
+					"            mode: 'raw',",
+					"            raw: JSON.stringify({",
+					"                login: 'xxx',",
+					"                password: 'xxx',",
+					"                token_2fa: null",
+					"            })",
+					"        }",
+					"     }, function(err, res) {",
+					"        pm.environment.set(\"JWT_TOKEN\", res.json().data.access_token);",
+					"    });",
+					"}"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
